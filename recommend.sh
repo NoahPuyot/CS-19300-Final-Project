@@ -8,8 +8,14 @@ source "$(dirname "${BASH_SOURCE[0]}")/import.sh"
 #Can set other max values for fun!
 max=50
 
+#Prompts user to ask for a commander (They have to type).
+read -r -p "Commander: " commander
+
+#If nothing was entered, simply end program and give reason why
+[ -n "$commander" ] || { echo "No commander given." >&2; exit1; }
+
 #Fixed Commander (FOR NOW)
-ids=$(get_decks_ids "Krenko, Mob Boss" "$max")
+ids=$(get_decks_ids "$commander" "$max")
 
 #Same trick as before, prints id's to be counted by grep -c . to see how many ids there actually are.
 #|| true runs if no deck is found (If grep -c . found zero lines it would instead see it as a success instead of an
